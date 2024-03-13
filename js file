@@ -1,0 +1,34 @@
+// Set the countdown date (e.g., New Year's Eve)
+var countdownDate = new Date('2025-01-01T00:00:00').getTime();
+
+// Update the countdown every second
+var countdownTimer = setInterval(function() {
+    // Get the current date and time
+    var now = new Date().getTime();
+
+    // Calculate the remaining time
+    var distance = countdownDate - now;
+
+    // Calculate days, hours, minutes, and seconds
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Display the countdown timer
+    document.getElementById('days').innerHTML = '<span>' + formatTime(days) + '</span> Days';
+    document.getElementById('hours').innerHTML = '<span>' + formatTime(hours) + '</span> Hours';
+    document.getElementById('minutes').innerHTML = '<span>' + formatTime(minutes) + '</span> Minutes';
+    document.getElementById('seconds').innerHTML = '<span>' + formatTime(seconds) + '</span> Seconds';
+
+    // If the countdown is finished, display a message
+    if (distance < 0) {
+        clearInterval(countdownTimer);
+        document.getElementById('timer').innerHTML = "<span>EXPIRED</span>";
+    }
+}, 1000); // Update every second
+
+// Function to format time to two digits
+function formatTime(time) {
+    return time < 10 ? '0' + time : time;
+}
